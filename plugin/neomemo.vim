@@ -3,10 +3,10 @@ if exists('g:loaded_neomemo')
 endif
 let g:loaded_neomemo = 1
 
-let s:save_cpo = &cpo
+let s:cpo_save = &cpo
 set cpo&vim
 
-command! -nargs=0 Neomemo call neomemo#call_neomemo()
+command! Neomemo call neomemo#call_neomemo()
 
-set cpo = s:save_cpo
-unlet s:seve_cpo
+let &cpo = s:cpo_save
+unlet s:cpo_save

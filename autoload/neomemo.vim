@@ -6,5 +6,5 @@ function! neomemo#call_neomemo()
 endfunction
 
 
-set cpo = s:save_cpo
-unlet s:save_spo
+let &cpo = s:save_cpo
+unlet s:save_cpo
