@@ -1,12 +1,12 @@
-if exists('g:loaded_neomemo')
+if exists('g:loaded_tomemo')
     finish
 endif
-let g:loaded_neomemo = 1
+let g:loaded_tomemo = 1
 
 let s:cpo_save = &cpo
 set cpo&vim
 
-command! Neomemo call neomemo#call_neomemo()
+command! Tomemo call tomemo#call_tomemo()
 
 let &cpo = s:cpo_save
 unlet s:cpo_save
