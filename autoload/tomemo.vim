@@ -12,12 +12,13 @@ let s:tomemo_ext = ".tm"
 
 "entry point
 function! tomemo#call_tomemo(...)
-    call tomemo#init()
-    if a:1 == "global"
-        call tomemo#open_global_file()
-    elseif a:1 == "project"
-        if exists("a:2")
-            call tomemo#open_project_file(a:2)
+    if exists("a:1")
+        if a:1 == "global"
+            call tomemo#open_global_file()
+        elseif a:1 == "project"
+            if exists("a:2")
+                call tomemo#open_project_file(a:2)
+            endif
         endif
     else
         call tomemo#open_local_file()
@@ -45,6 +46,9 @@ function! tomemo#open_global_file()
 endfunction
 
 function! tomemo#open_project_file(project_name)
+    if !isdirectory(s:tomemo_project_dir)
+        call mkdir(s:tomemo_project_dir)
+    endif
     execute "vsplit " . s:tomemo_project_dir ."/". a:project_name . s:tomemo_ext
 endfunction
 
