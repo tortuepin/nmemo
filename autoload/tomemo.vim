@@ -37,7 +37,7 @@ function! tomemo#open_local_file()
     if !isdirectory(s:tomemo_local_filepath)
         call mkdir(s:tomemo_local_filepath, "p")
     endif
-    execute "vsplit " . s:tomemo_local_filepath ."/". s:filename . s:tomemo_ext
+    execute "vsplit " . s:tomemo_local_filepath . s:filename . s:tomemo_ext
 endfunction
 
 
@@ -49,7 +49,8 @@ function! tomemo#open_project_file(project_name)
     if !isdirectory(s:tomemo_project_dir)
         call mkdir(s:tomemo_project_dir)
     endif
-    execute "vsplit " . s:tomemo_project_dir ."/". a:project_name . s:tomemo_ext
+
+    execute "vsplit " . s:tomemo_project_dir . a:project_name . s:tomemo_ext
 endfunction
 
 
