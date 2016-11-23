@@ -19,6 +19,8 @@ function! tomemo#call_tomemo(...)
             if exists("a:2")
                 call tomemo#open_project_file(a:2)
             endif
+        elseif a:1 == "test"
+            execute "echo 'aaa'"
         endif
     else
         call tomemo#open_local_file()
