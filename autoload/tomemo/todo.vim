@@ -1,4 +1,4 @@
-function! tomemo#switch_todo()
+function! tomemo#todo#switch_todo()
     let s:save_cursor = getcurpos()
     let s:line = getline(".")
 

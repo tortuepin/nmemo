@@ -10,7 +10,7 @@ let s:filename = expand("%:t")
 let s:tomemo_local_filepath = s:tomemo_local_dir . s:filepath
 let s:tomemo_ext = ".tm"
 
-"entry point
+"entry point {{{
 function! tomemo#call_tomemo(...)
     if exists("a:1")
         if a:1 == "global"
@@ -25,36 +25,45 @@ function! tomemo#call_tomemo(...)
     else
         call tomemo#open_local_file()
     endif
+
+    exe "set filetype=tm"
+    
 endfunction
+" }}}
 
-
+"init  {{{
 function! tomemo#init()
     if !isdirectory(s:tomemo_dir)
         call mkdir(s:tomemo_dir, "p")
     endif
 endfunction
+"}}}
 
-
-function! tomemo#open_local_file()
+function! tomemo#open_local_file() "{{{
     if !isdirectory(s:tomemo_local_filepath)
         call mkdir(s:tomemo_local_filepath, "p")
     endif
     execute "vsplit " . s:tomemo_local_filepath . s:filename . s:tomemo_ext
 endfunction
+"}}}
 
-
-function! tomemo#open_global_file()
+function! tomemo#open_global_file() "{{{
     execute "vsplit " . s:tomemo_global_filename . s:tomemo_ext
 endfunction
+"}}}
 
-function! tomemo#open_project_file(project_name)
+function! tomemo#open_project_file(project_name) "{{{
     if !isdirectory(s:tomemo_project_dir)
         call mkdir(s:tomemo_project_dir)
     endif
 
     execute "vsplit " . s:tomemo_project_dir . a:project_name . s:tomemo_ext
 endfunction
+"}}}
 
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+
+
+" vim:set foldmethod=marker:
