@@ -4,6 +4,7 @@ set cpo&vim
 let s:tomemo_dir = "~/.tomemo"
 let s:tomemo_local_dir = fnamemodify(s:tomemo_dir . "/Local", ":p")
 let s:tomemo_project_dir = fnamemodify(s:tomemo_dir . "/Project", ":p")
+let s:tomemo_junk_dir = fnamemodify(s:tomemo_dir . "/Junk", ":p")
 let s:tomemo_global_filename = fnamemodify(s:tomemo_dir . "/global", ":p")
 let s:filepath = expand("%:p:h")
 let s:filename = expand("%:t")
@@ -21,6 +22,8 @@ function! tomemo#call_tomemo(...)
         call tomemo#open_global_file(s:context)
     elseif s:context["command"] == "project"
         call tomemo#open_project_file(s:context)
+    elseif s:context["command"] == "junk"
+        call tomemo#open_junk_file(s:context)
     elseif s:context["command"] == "test"
         execute "echo 'aaa'"
     endif
@@ -75,6 +78,16 @@ function! tomemo#open_project_file(context) "{{{
     execute com . s:tomemo_project_dir . a:context["source"] . s:tomemo_ext
 endfunction
 "}}}
+
+function! tomemo#open_junk_file(context) "{{{
+    if !isdirectory(s:tomemo_junk_dir)
+        call mkdir(s:tomemo_junk_dir)
+    endif
+    let com = tomemo#get_option_com(a:context)
+
+    execute com . s:tomemo_junk_dir . strftime("%y%m%d") . s:tomemo_ext
+endfunction "}}}
+
 
 
 let &cpo = s:save_cpo
