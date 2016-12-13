@@ -7,7 +7,7 @@ class SyncSimpleNote(object):
         self.nvim = nvim
 
     @neovim.function("_SyncSimpleNote", sync=True)
-    def testfunction(self, args):
+    def SyncSimpleNote(self, args):
         self.nvim.command("echo 'Sync!!!'")
         return 3
 
