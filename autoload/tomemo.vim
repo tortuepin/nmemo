@@ -11,8 +11,7 @@ let s:filename = expand("%:t")
 let s:tomemo_local_filepath = s:tomemo_local_dir . s:filepath
 let s:tomemo_ext = ".tm"
 
-"entry point tomemo#call_tomemo(){{{
-function! tomemo#call_tomemo(...)
+function! tomemo#call_tomemo(...) " entry point {{{
     let s:context = tomemo#init#init_context(a:000)
     echo s:context["command"]
 
@@ -45,7 +44,6 @@ function! tomemo#get_option_com(context) "{{{
     endif
     return com
 endfunction "}}}
-    
 
 function! tomemo#init() "{{{
     if !isdirectory(s:tomemo_dir)
