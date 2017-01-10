@@ -1,3 +1,5 @@
+# vim:set foldmethod=marker:
+
 import simplenote
 def get_User_Data(filename): #{{{
     '''
@@ -86,11 +88,12 @@ def modify_file_to_content(filename):#{{{
     '''
     modifiy file to fit simplenote content.
     '''
+    ret = {'content':''}
+
     f = open(filename, 'r')
-    content = f.read()
+    ret['content'] = f.read()
     f.close()
 
-    return content
+    return ret
 #}}}
-
 
