@@ -1,5 +1,5 @@
 import simplenote
-def get_User_Data(filename):
+def get_User_Data(filename): #{{{
     '''
     get user data from file
 
@@ -19,21 +19,24 @@ def get_User_Data(filename):
     data["password"] = f.readline().strip()
     
     return data
+    #}}}
 
-def fetch_Auth_Data(email, password):
+def fetch_Auth_Data(email, password):#{{{
     '''
     fetch authdata from the internet.
     '''
     authData = simplenote.Simplenote(email, password)
     return authData
+#}}}
 
-def fetch_tomemo_index(authData):
+def fetch_tomemo_index(authData):#{{{
     '''
     fetch note about tomemo from the internet.
     '''
     return authData.get_note_list(tags=["tomemo"])
+#}}}
 
-def make_note_list(authData):
+def make_note_list(authData):#{{{
     '''
     make tomemo note list.
     {"title":"content"}
@@ -47,8 +50,9 @@ def make_note_list(authData):
         noteList[title] = noteData
 
     return noteList
+#}}}
 
-def update_note(noteData, authData):
+def update_note(noteData, authData):#{{{
     '''
     update note.
     noteData is fetched by get_note method
@@ -56,22 +60,37 @@ def update_note(noteData, authData):
     if authData.update_note(noteData)[1] == -1:
         return -1
     return -1
+#}}}
 
-def save_note_on_file(filename, noteData):
+def save_note_on_file(filename, noteData):#{{{
     '''
     save note on 'filename'.
     '''
     f = open(filename, 'w')
-    f.write(cut_title(noteData['content'])) 
+    f.write(cut_down_title(noteData['content'])) 
     f.close()
+#}}}
 
-def cut_title(content):
+def cut_down_title(content):#{{{
     '''
-    cut first line.
+    cut down the title and return only content.
     '''
     lines = content.split("\n")
     del lines[0]
     ret = "\n".join(lines)
 
     return ret
+#}}}
+
+def modify_file_to_content(filename):#{{{
+    '''
+    modifiy file to fit simplenote content.
+    '''
+    f = open(filename, 'r')
+    content = f.read()
+    f.close()
+
+    return content
+#}}}
+
 
