@@ -1,6 +1,7 @@
 # vim:set foldmethod=marker:
 
 import simplenote
+import os.path
 def get_User_Data(filename): #{{{
     '''
     get user data from file
@@ -41,7 +42,7 @@ def fetch_tomemo_index(authData):#{{{
 def make_note_list(authData):#{{{
     '''
     make tomemo note list.
-    {"title":"content"}
+    {"title":"noteData"}
     '''
     index = fetch_tomemo_index(authData)
     noteList = {}
@@ -69,11 +70,11 @@ def save_note_on_file(filename, noteData):#{{{
     save note on 'filename'.
     '''
     f = open(filename, 'w')
-    f.write(cut_down_title(noteData['content'])) 
+    f.write(modify_content_to_file(noteData['content'])) 
     f.close()
 #}}}
 
-def cut_down_title(content):#{{{
+def modify_content_to_file(content):#{{{
     '''
     cut down the title and return only content.
     '''
@@ -88,12 +89,26 @@ def modify_file_to_content(filename):#{{{
     '''
     modifiy file to fit simplenote content.
     '''
-    ret = {'content':''}
 
     f = open(filename, 'r')
-    ret['content'] = f.read()
+    ret = f.read()
+    ret = os.path.basename(filename) + "\n" + ret
     f.close()
 
     return ret
 #}}}
 
+def sync_file(authData, filepath, notelist):#{{{
+    '''
+    sync file on filepath of arg.
+    this method overwrite notedata on simplenote.
+
+    arg
+        notelist : notelist on simplenote
+    '''
+
+    note = notelist[os.path.basename(filepath)]
+    note["content"] = modify_file_to_content(os.path.basename(filepath))
+    update_note(note, authData)
+#}}}
+    
