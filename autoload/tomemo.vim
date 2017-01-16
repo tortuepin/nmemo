@@ -57,7 +57,7 @@ function! tomemo#open_local_file(context) "{{{
         call mkdir(s:tomemo_local_filepath, "p")
     endif
     let com = tomemo#get_option_com(a:context)
-    execute com . s:tomemo_local_filepath . s:filename . s:tomemo_ext
+    execute com . s:tomemo_local_filepath . s:filename . "/" .  s:tomemo_ext
 endfunction
 "}}}
 
